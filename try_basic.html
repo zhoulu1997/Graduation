@@ -1,0 +1,50 @@
+<!-- Code from d3-graph-gallery.com -->
+<!-- allow-file-access-from-files -->
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+
+<!-- Create an element where the map will take place -->
+<svg id="my_dataviz" width="1000" height="600"></svg>
+
+
+<script>
+
+// The svg
+var svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
+
+// Map and projection
+// Map and projection
+var path = d3.geoPath();
+var projection = d3.geoMercator()
+  .scale(60)
+  .center([90,40]);
+  
+
+// Load external data and boot
+
+d3.json("https://github.com/zhoulu1997/Graduation/blob/master/wulumuqi.geojson", function(err,data){
+if(err) console.log("error fetching data");
+// data holds the file content
+}); 
+    // Draw the map
+
+    projection.fitSize([svgWidth,svgHeight],data);
+    svg.append("g")
+        .selectAll("path")
+        .data(data.features)
+        .enter().append("path")
+            .attr("fill", "#69b3a2")
+            .attr("d", d3.geoPath()
+                .projection(projection)
+            )
+            .style("stroke", "#fff")
+
+
+</script>
